@@ -73,12 +73,17 @@ void do_file_help(const char *arg) {
  * File mode NEW command.
  */
 void do_file_new(const char *arg) {
-	
+    char name[MAX_INPUT];
+    char xDim[5];
+    char yDim[5];
 	/* to be implemented */
     printf("Enter a name for the new design: ");
+    scanf("%s", name);
     printf("Enter the x dimension: ");
+    scanf("%s", xDim);
     printf("Enter the y dimension: ");
-	
+    scanf("%s", yDim);
+    do_design_help(NULL);
 }
 
 

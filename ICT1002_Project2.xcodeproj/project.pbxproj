@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B14B90DB1FBBDE60008AC7AB /* commands.c in Sources */ = {isa = PBXBuildFile; fileRef = B14B90D91FBBDE60008AC7AB /* commands.c */; };
+		B14B90DC1FBBDE60008AC7AB /* map.c in Sources */ = {isa = PBXBuildFile; fileRef = B14B90DA1FBBDE60008AC7AB /* map.c */; };
 		B16ACC211FAD6FB20097C5A4 /* features.c in Sources */ = {isa = PBXBuildFile; fileRef = B16ACC1D1FAD6FB20097C5A4 /* features.c */; };
 		B16ACC231FAD6FB20097C5A4 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = B16ACC1F1FAD6FB20097C5A4 /* main.c */; };
-		B1778AB41FB8953F0029BC1F /* map.c in Sources */ = {isa = PBXBuildFile; fileRef = B1778AB31FB8953F0029BC1F /* map.c */; };
-		B1778AB61FB8958B0029BC1F /* commands.c in Sources */ = {isa = PBXBuildFile; fileRef = B1778AB51FB8958B0029BC1F /* commands.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,12 +26,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B14B90D91FBBDE60008AC7AB /* commands.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = commands.c; sourceTree = "<group>"; };
+		B14B90DA1FBBDE60008AC7AB /* map.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = map.c; sourceTree = "<group>"; };
 		B16ACC111FAD6FA10097C5A4 /* ICT1002_Project2 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ICT1002_Project2; sourceTree = BUILT_PRODUCTS_DIR; };
 		B16ACC1C1FAD6FB20097C5A4 /* campus1002.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = campus1002.h; sourceTree = "<group>"; };
 		B16ACC1D1FAD6FB20097C5A4 /* features.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = features.c; sourceTree = "<group>"; };
 		B16ACC1F1FAD6FB20097C5A4 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
-		B1778AB31FB8953F0029BC1F /* map.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = map.c; path = ../../../../../../../Downloads/map.c; sourceTree = "<group>"; };
-		B1778AB51FB8958B0029BC1F /* commands.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = commands.c; path = ../../../../../../../Downloads/commands.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,8 +64,8 @@
 		B16ACC131FAD6FA10097C5A4 /* ICT1002_Project2 */ = {
 			isa = PBXGroup;
 			children = (
-				B1778AB51FB8958B0029BC1F /* commands.c */,
-				B1778AB31FB8953F0029BC1F /* map.c */,
+				B14B90D91FBBDE60008AC7AB /* commands.c */,
+				B14B90DA1FBBDE60008AC7AB /* map.c */,
 				B16ACC1C1FAD6FB20097C5A4 /* campus1002.h */,
 				B16ACC1D1FAD6FB20097C5A4 /* features.c */,
 				B16ACC1F1FAD6FB20097C5A4 /* main.c */,
@@ -130,10 +130,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B14B90DC1FBBDE60008AC7AB /* map.c in Sources */,
 				B16ACC231FAD6FB20097C5A4 /* main.c in Sources */,
 				B16ACC211FAD6FB20097C5A4 /* features.c in Sources */,
-				B1778AB41FB8953F0029BC1F /* map.c in Sources */,
-				B1778AB61FB8958B0029BC1F /* commands.c in Sources */,
+				B14B90DB1FBBDE60008AC7AB /* commands.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

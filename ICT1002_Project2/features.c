@@ -32,8 +32,21 @@
 FEATURE *features_add(char type, const char *id, const char *name, int xloc, int yloc, int xdim, int ydim) {
 	
 	/* to be implemented */
-	return NULL;
-	
+    FEATURE *featurePtr = malloc(sizeof(FEATURE));
+    if (featurePtr == NULL){
+        // Malloc Failed
+        return NULL;
+    }
+    
+    featurePtr->type = type;
+    strcpy(featurePtr->id, id);
+    strcpy(featurePtr->name, name);
+    featurePtr->xloc = xloc;
+    featurePtr->yloc = yloc;
+    featurePtr->xdim = xdim;
+    featurePtr->ydim = ydim;
+    
+    return featurePtr;
 }
 
 

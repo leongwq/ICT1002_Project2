@@ -47,6 +47,8 @@ int map_init(const char *name, int xdim, int ydim) {
 	// return *fileName;
 	// return xDimension;
 	// return yDimension;
+    
+    return 0;
 
 }
 
@@ -70,8 +72,8 @@ void map_print() {
         /* Iterate over columns */
         for(horizontal=1; horizontal<=xDimension; horizontal++)
         {
-            /* Print star for each column */
-            printf("#");
+            /* Print dot for each column */
+            printf(".");
         }
         
         /* Move to the next line/row */
@@ -175,6 +177,8 @@ int map_validate_geometry(int xloc, int yloc, int xdim, int ydim) {
 	// else{
 		
 	// }
+    
+    return 0;
 }
 
 

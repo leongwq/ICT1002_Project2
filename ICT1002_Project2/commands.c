@@ -18,6 +18,7 @@
 #include "campus1002.h"
 
 
+char currentFeatureName[50];
 
 /*
  * Execute a command in file mode.
@@ -82,11 +83,15 @@ void do_file_new(const char *arg) {
 
 	// Check for user input
 	printf("Enter a name for the new design: ");
-	scanf("%s", &userName);
+	scanf(" %s", userName);
+    getchar();
 	printf("Enter the x dimension: ");
-	scanf("%d",&userXdim);
+	scanf(" %d",&userXdim);
+    getchar();
 	printf("Enter the y dimension: ");
-	scanf("%d",&userYdim);
+	scanf(" %d",&userYdim);
+    getchar();
+
 
 	// Store user input into variables in map.c for usage
 	map_init(userName, userXdim, userYdim);
@@ -103,6 +108,7 @@ void do_file_new(const char *arg) {
 void do_file_open(const char *arg) {
 	
 	/* to be implemented */
+    
 	
 }
 
@@ -190,9 +196,45 @@ void do_design_help(const char *arg) {
  */
 void do_design_add(const char *arg) {
 	
-	char add_id[50];
+    char featureID[MAX_ID];
+    char featureName[MAX_NAME];
+    char featureType;
+    int xLoc = 0;
+    int yLoc = 0;
+    int xDim = 0;
+    int yDim = 0;
+    
+    strcpy(featureID, arg); // Set featureID
+    
 	printf("What type of feature?\n  # - building\n  . - green space\n  _ - road\n  * - walkway\n");
-	
+    featureType = getchar();
+    getchar();
+
+    printf("Feature Type = %c\n", featureType);
+
+    printf("Enter a name for feature %s: ",arg);
+    scanf(" %s", featureName);
+    getchar();
+    printf("Enter the x location: ");
+	scanf(" %d", &xLoc);
+    getchar();
+    printf("Enter the y location: ");
+    scanf(" %d", &yLoc);
+    getchar();
+    printf("Enter the x dimension: ");
+    scanf(" %d", &xDim);
+    getchar();
+    printf("Enter the y dimension: ");
+    scanf(" %d", &yDim);
+    getchar();
+    
+    strcpy(currentFeatureName, featureID); // Set current feature ID to global
+    FEATURE *ptr;
+    ptr = features_add(featureType, featureID, featureName, xLoc, yLoc, xDim, yDim);
+    printf ("%p",ptr);
+    
+    printf("Name = %s\n", ptr->name);
+
 }
 
 

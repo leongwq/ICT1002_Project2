@@ -10,8 +10,7 @@
  
 #include <stdint.h>
 #include <stdio.h>
- 
- 
+
 /* the maximum number of characters we expect in a line of input */
 #define MAX_INPUT   256
 
@@ -42,9 +41,11 @@ typedef struct feature_struct {
 	int32_t     yloc;            /* y location */
 	int32_t     xdim;            /* x dimension */
 	int32_t     ydim;            /* y dimension */
+    struct      feature_struct *next;
 } FEATURE;
- 
- 
+
+extern FEATURE *head;
+
 /* functions defined in main.c */
 void main_design(void);
 int compare_token(const char *token1, const char *token2);

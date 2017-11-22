@@ -11,6 +11,7 @@
 #include "campus1002.h"
 
 /* declare your internal variables here */
+FEATURE *head=NULL; // DO NOT EVER MODIFY IT
 
 
 /*
@@ -29,24 +30,47 @@
  *   a pointer to the new FEATURE structure, if successful
  *   NULL, if memory could not be allocated
  */
+
 FEATURE *features_add(char type, const char *id, const char *name, int xloc, int yloc, int xdim, int ydim) {
-	
-	/* to be implemented */
-    FEATURE *featurePtr = malloc(sizeof(FEATURE));
-    if (featurePtr == NULL){
-        // Malloc Failed
-        return NULL;
+    FEATURE *temp=head;
+    FEATURE *prev=NULL;
+    FEATURE *ptr;
+
+    ptr=(FEATURE*)malloc(sizeof(FEATURE));
+    ptr->type = type;
+    strcpy(ptr->id, id);
+    strcpy(ptr->name, name);
+    ptr->xloc = xloc;
+    ptr->yloc = yloc;
+    ptr->xdim = xdim;
+    ptr->ydim = ydim;
+    ptr->next=NULL;
+
+    if(temp==NULL) { //Executes when linked list is empty
+        ptr->next=NULL; // Sets next to NULL. (First node)
+        head=ptr; // Set current head to ptr
     }
-    
-    featurePtr->type = type;
-    strcpy(featurePtr->id, id);
-    strcpy(featurePtr->name, name);
-    featurePtr->xloc = xloc;
-    featurePtr->yloc = yloc;
-    featurePtr->xdim = xdim;
-    featurePtr->ydim = ydim;
-    
-    return featurePtr;
+    else
+    {
+        while(temp!=NULL)
+        {
+            if(ptr->next == NULL) // Loop till the end of the the link
+            {
+                prev=temp; // set prev ptr as current position
+                temp=temp->next; // Advance to the next node.
+                continue;
+            }
+            else
+            {
+                //Insert the node
+                prev->next=ptr; // Set prev node next position to new old position
+                ptr->next=temp;
+            }
+        }
+        //Insert node at last
+        prev->next=ptr;
+    }
+    return ptr;
 }
 
 
@@ -70,8 +94,6 @@ void features_delete(FEATURE *feature) {
 	/* to be implemented */
 	
 }
-		
-
 
 /*
  * Get a pointer to a feature with a given identifier.

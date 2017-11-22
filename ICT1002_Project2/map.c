@@ -57,28 +57,51 @@ int map_init(const char *name, int xdim, int ydim) {
  * Print the map on the screen.
  */
 void map_print() {
-	
-	int horizontal, vertical;
+    
+    char map[yDimension][xDimension]; // Generate 2D array for map
+    memset( map, 0, sizeof(map));
+    
+    FEATURE *temp=head; // Get the pointer of the head of linked list
 
-
-	/*2 OPTIONS ON DISPLAYING
-		1) Show whole area of map canvas
-		2) Show only perimeter of map canvas
-		-Comment out based on preference*/
-		
-	// 1)Display whole area 
-	for(vertical=1; vertical<=yDimension; vertical++)
+    while(temp!=NULL)
     {
-        /* Iterate over columns */
-        for(horizontal=1; horizontal<=xDimension; horizontal++)
-        {
-            /* Print dot for each column */
-            printf(".");
+        for (int xdim = 0; xdim<temp->xdim; xdim++){
+            map[temp->yloc][temp->xloc + xdim] = temp->type;
         }
-        
-        /* Move to the next line/row */
+        for (int ydim = 0; ydim<temp->ydim; ydim++){
+            map[temp->yloc + ydim][temp->xloc] = temp->type;
+        }
+        temp=temp->next;
+    }
+    
+    for (int i = 0; i < xDimension; i++) {
+        for (int j = 0; j < yDimension; j++) {
+            printf("%c ", map[i][j]);
+        }
         printf("\n");
     }
+    
+//    int horizontal, vertical;
+//
+//
+//    /*2 OPTIONS ON DISPLAYING
+//        1) Show whole area of map canvas
+//        2) Show only perimeter of map canvas
+//        -Comment out based on preference*/
+//
+//    // 1)Display whole area
+//    for(vertical=1; vertical<=yDimension; vertical++)
+//    {
+//        /* Iterate over columns */
+//        for(horizontal=1; horizontal<=xDimension; horizontal++)
+//        {
+//            /* Print dot for each column */
+//            printf(".");
+//        }
+//
+//        /* Move to the next line/row */
+//        printf("\n");
+//    }
 
     // 2)Display whole perimeter 
     // for(horizontal=1; horizontal<=yDimension; horizontal++)

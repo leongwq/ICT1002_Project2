@@ -52,7 +52,6 @@ int map_init(const char *name, int xdim, int ydim) {
 
 }
 
-
 /*
  * Print the map on the screen.
  */
@@ -80,51 +79,6 @@ void map_print() {
         }
         printf("\n");
     }
-    
-//    int horizontal, vertical;
-//
-//
-//    /*2 OPTIONS ON DISPLAYING
-//        1) Show whole area of map canvas
-//        2) Show only perimeter of map canvas
-//        -Comment out based on preference*/
-//
-//    // 1)Display whole area
-//    for(vertical=1; vertical<=yDimension; vertical++)
-//    {
-//        /* Iterate over columns */
-//        for(horizontal=1; horizontal<=xDimension; horizontal++)
-//        {
-//            /* Print dot for each column */
-//            printf(".");
-//        }
-//
-//        /* Move to the next line/row */
-//        printf("\n");
-//    }
-
-    // 2)Display whole perimeter 
-    // for(horizontal=1; horizontal<=yDimension; horizontal++)
-    // {
-    //     /* Iterate over each column */
-    //     for(vertical=1; vertical<=xDimension; vertical++)
-    //     {
-    //         if(horizontal==1 || horizontal==yDimension || vertical==1 || vertical==xDimension)
-    //         {
-    //             /* Print star for 1st, Nth row and column */
-    //             printf("#");
-    //         }
-    //         else
-    //         {
-    //             printf(" ");
-    //         }
-    //     }
-
-    //     /* Move to the next line/row */
-    //     printf("\n");
-    // }
-
-	
 }
 
 
@@ -140,8 +94,35 @@ void map_print() {
  *   feature - a pointer to the feature structure to be added
  */
 void map_put_feature(FEATURE *feature) {
+    
+    FEATURE *ptr = feature;
+    FEATURE *temp=head;
+    FEATURE *prev=NULL;
 	
-	/* to be implemented */
+    if(temp==NULL) { //Executes when linked list is empty
+        ptr->next=NULL; // Sets next to NULL. (First node)
+        head=ptr; // Set current head to ptr
+    }
+    else
+    {
+        while(temp!=NULL)
+        {
+            if(ptr->next == NULL) // Loop till the end of the the link
+            {
+                prev=temp; // set prev ptr as current position
+                temp=temp->next; // Advance to the next node.
+                continue;
+            }
+            else
+            {
+                //Insert the node
+                prev->next=ptr; // Set prev node next position to new old position
+                ptr->next=temp;
+            }
+        }
+        //Insert node at last
+        prev->next=ptr;
+    }
 		
 }
 

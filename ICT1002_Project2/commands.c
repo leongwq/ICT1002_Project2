@@ -230,8 +230,8 @@ void do_design_add(const char *arg) {
     
     strcpy(currentFeatureName, featureID); // Set current feature ID to global
     FEATURE *ptr;
-    ptr = features_add(featureType, featureID, featureName, xLoc, yLoc, xDim, yDim);
-    printf ("%p",ptr);
+    ptr = features_add(featureType, featureID, featureName, xLoc, yLoc, xDim, yDim); // Get the ptr for feature
+    map_put_feature(ptr);
     
     printf("Name = %s\n", ptr->name);
 
@@ -252,8 +252,11 @@ void do_design_delete(const char *arg) {
  * Design mode DISPLAY command.
  */
 void do_design_display(const char *arg) {
+    
 	printf("Your map canvas:\n");
 	map_print();
+    
+    
 	
 	
 	

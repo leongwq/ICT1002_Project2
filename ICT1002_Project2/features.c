@@ -32,8 +32,7 @@ FEATURE *head=NULL; // DO NOT EVER MODIFY IT
  */
 
 FEATURE *features_add(char type, const char *id, const char *name, int xloc, int yloc, int xdim, int ydim) {
-    FEATURE *temp=head;
-    FEATURE *prev=NULL;
+
     FEATURE *ptr;
 
     ptr=(FEATURE*)malloc(sizeof(FEATURE));
@@ -46,30 +45,6 @@ FEATURE *features_add(char type, const char *id, const char *name, int xloc, int
     ptr->ydim = ydim;
     ptr->next=NULL;
 
-    if(temp==NULL) { //Executes when linked list is empty
-        ptr->next=NULL; // Sets next to NULL. (First node)
-        head=ptr; // Set current head to ptr
-    }
-    else
-    {
-        while(temp!=NULL)
-        {
-            if(ptr->next == NULL) // Loop till the end of the the link
-            {
-                prev=temp; // set prev ptr as current position
-                temp=temp->next; // Advance to the next node.
-                continue;
-            }
-            else
-            {
-                //Insert the node
-                prev->next=ptr; // Set prev node next position to new old position
-                ptr->next=temp;
-            }
-        }
-        //Insert node at last
-        prev->next=ptr;
-    }
     return ptr;
 }
 
@@ -142,6 +117,7 @@ void features_list() {
 void features_print(FEATURE *feature) {
 	
 	/* to be implemented */
+    
 	
 }
 

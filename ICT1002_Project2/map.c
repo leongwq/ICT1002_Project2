@@ -62,7 +62,7 @@ void map_print() {
     
     FEATURE *temp=head; // Get the pointer of the head of linked list
 
-    while(temp!=NULL)
+    while(temp!=NULL) // Generated the map with the features
     {
         for (int xdim = 0; xdim<temp->xdim; xdim++){
             map[temp->yloc][temp->xloc + xdim] = temp->type;
@@ -73,7 +73,7 @@ void map_print() {
         temp=temp->next;
     }
     
-    for (int i = 0; i < xDimension; i++) {
+    for (int i = 0; i < xDimension; i++) { // Print out the map
         for (int j = 0; j < yDimension; j++) {
             printf("%c ", map[i][j]);
         }
@@ -94,6 +94,8 @@ void map_print() {
  *   feature - a pointer to the feature structure to be added
  */
 void map_put_feature(FEATURE *feature) {
+    
+    //TODO: map_validate_geometry() and features_validate_geometry()
     
     FEATURE *ptr = feature;
     FEATURE *temp=head;
@@ -140,7 +142,7 @@ void map_put_feature(FEATURE *feature) {
  */
 int map_read(FILE *f) {
 	
-	/* to be implemented */
+    
 	return 0;
 	
 }
@@ -153,9 +155,30 @@ int map_read(FILE *f) {
  *   feature - a pointer to the feature structure to be removed
  */
 void map_remove_feature(FEATURE *feature) {
-	
-	/* to be implemented */
-			
+    
+    FEATURE *ptr = feature;
+    FEATURE *prev=NULL;
+    FEATURE *temp=head; // Get the head of the linked list
+    
+    if(temp!=NULL){
+        while(temp!=NULL){
+            if (temp == ptr){ // If the head is feature to be deleted
+                features_delete(ptr);
+                break;
+            }
+            else if(temp->next == ptr) // Loop till the feature pointer is found
+            {
+                printf("Called");
+                prev = temp; // Get the node
+                prev->next = ptr->next; // Set the previous node's next to the pointer's next
+                features_delete(ptr);
+                break;
+            }
+            temp=temp->next; // Advance to the next node.
+        }
+
+    }
+    
 }
 
 
@@ -184,7 +207,6 @@ int map_validate_geometry(int xloc, int yloc, int xdim, int ydim) {
     
     return 0;
 }
-
 
 /*
  * Write the map record to a file.

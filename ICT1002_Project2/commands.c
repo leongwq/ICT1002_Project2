@@ -231,7 +231,7 @@ void do_design_add(const char *arg) {
     strcpy(currentFeatureName, featureID); // Set current feature ID to global
     FEATURE *ptr;
     ptr = features_add(featureType, featureID, featureName, xLoc, yLoc, xDim, yDim); // Get the ptr for feature
-    map_put_feature(ptr);
+    map_put_feature(ptr); // Add the feature on the map
     
     printf("Name = %s\n", ptr->name);
 
@@ -243,7 +243,17 @@ void do_design_add(const char *arg) {
  */
 void do_design_delete(const char *arg) {
 	
-	/* to be implemented */
+    FEATURE *temp=head;
+    char *id;
+    
+    while(temp!=NULL) {
+        id = temp->id; // Convert char to char* for comparision
+        if(strcmp(temp->id,arg) == 0) { // Loop till the ID matches
+            map_remove_feature(temp); // Pass the pointer of feature to be deleted
+            printf("%s deleted \n",temp->id);
+        }
+        temp=temp->next; // Advance to the next node.
+    }
 	
 }
 
@@ -255,11 +265,6 @@ void do_design_display(const char *arg) {
     
 	printf("Your map canvas:\n");
 	map_print();
-    
-    
-	
-	
-	
 }
 
 

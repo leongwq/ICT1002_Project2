@@ -65,8 +65,9 @@ void features_close() {
  *   feature - a pointer to the feature to be deleted
  */
 void features_delete(FEATURE *feature) {
-	
-	/* to be implemented */
+    
+    FEATURE *ptr = feature;
+    free(ptr); // Free the feature node from the misery of life
 	
 }
 

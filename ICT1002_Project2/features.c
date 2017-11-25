@@ -11,7 +11,7 @@
 #include "campus1002.h"
 
 /* declare your internal variables here */
-FEATURE *head=NULL; // DO NOT EVER MODIFY IT
+FEATURE *head=NULL;
 
 /*
  * Add a new feature
@@ -52,10 +52,16 @@ FEATURE *features_add(char type, const char *id, const char *name, int xloc, int
  * Deallocate memory used by the current collection of features.
  */
 void features_close() {
-	
-	/* to be implemented */
-}
+    
+    FEATURE *temp=NULL;
+    FEATURE *headPtr=head;
 
+    while(headPtr!=NULL) {
+        temp = head; // Set the temp to the current head
+        headPtr = headPtr->next; // Set headPtr to the next available head
+        free(temp); // Free previous head
+    }
+}
 
 /*
  * Delete a feature from the collection.
@@ -66,8 +72,7 @@ void features_close() {
 void features_delete(FEATURE *feature) {
     
     FEATURE *ptr = feature;
-    free(ptr); // Free the feature node from the misery of life
-	
+    free(ptr); // Free the feature node from the memory
 }
 
 /*
@@ -91,7 +96,6 @@ FEATURE *features_get(const char *id) {
         }
         temp=temp->next; // Advance to the next node.
     }
-    
     return NULL; // ID not found
 }
 
@@ -101,7 +105,12 @@ FEATURE *features_get(const char *id) {
  */
 void features_init() {
 	
-	/* to be implemented */
+    FEATURE *headPtr=head;
+    
+    if (headPtr != NULL){ // Features exists
+        features_close();
+    }
+    
 }
  
 
@@ -196,7 +205,6 @@ FEATURE *features_validate_geometry(const char *id, int xloc, int yloc, int xdim
     }
 	return NULL;
 }
-
 
 /*
  * Write the features to a file.

@@ -95,8 +95,6 @@ void map_print() {
  */
 void map_put_feature(FEATURE *feature) {
     
-    //TODO: map_validate_geometry() and features_validate_geometry()
-    
     FEATURE *ptr = feature;
     FEATURE *temp=head;
     FEATURE *prev=NULL;
@@ -180,7 +178,6 @@ void map_remove_feature(FEATURE *feature) {
             }
             else if(temp->next == ptr) // Loop till the feature pointer is found
             {
-                printf("Called");
                 prev = temp; // Get the node
                 prev->next = ptr->next; // Set the previous node's next to the pointer's next
                 features_delete(ptr);

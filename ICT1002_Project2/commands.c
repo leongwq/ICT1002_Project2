@@ -100,17 +100,15 @@ void do_file_new(const char *arg) {
 	
 }
 
-
 /*
  * File mode OPEN command.
  */
 void do_file_open(const char *arg) {
 	
-	/* to be implemented */
+    FILE *f = fopen(arg, "rb");
+    map_read(f);
     
-	
 }
-
 
 /*
  * Execute a command in design mode.

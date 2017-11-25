@@ -152,9 +152,19 @@ void map_put_feature(FEATURE *feature) {
  */
 int map_read(FILE *f) {
 	
+    FEATURERAW feature;
     
+    if (f == NULL) {
+        printf("Could not open map.\n");
+        return ERROR_FILE;
+    }
+    else {
+        while (!feof(f)){
+            fread(&feature,sizeof(feature),1,f);
+            printf("%s\n",feature.name);
+        }
+    }
 	return 0;
-	
 }
 
 

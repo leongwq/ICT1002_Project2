@@ -102,7 +102,14 @@ void map_put_feature(FEATURE *feature) {
     FEATURE *prev=NULL;
     
     FEATURE *conflictingPointer = features_validate_geometry(feature->id,feature->xloc,feature->yloc,feature->xdim,feature->ydim);
-    if (conflictingPointer == NULL){
+    int withinMap = map_validate_geometry(feature->xloc,feature->yloc,feature->xdim,feature->ydim);
+    
+    if (!withinMap){ // The feature is not within map
+        printf("That location is not within map.\n");
+        return;
+    }
+    
+    if (conflictingPointer == NULL){ // Check if it has any conflicting features
         if(temp==NULL) { //Executes when linked list is empty
             ptr->next=NULL; // Sets next to NULL. (First node)
             head=ptr; // Set current head to ptr
@@ -131,9 +138,6 @@ void map_put_feature(FEATURE *feature) {
     else { // Conflicts with a pointer
         printf("That location is already occupied by feature %s.\n",conflictingPointer->name);
     }
-	
-    
-		
 }
 
 

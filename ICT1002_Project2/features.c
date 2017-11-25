@@ -170,9 +170,19 @@ int features_read(FILE *f) {
  */
 FEATURE *features_validate_geometry(const char *id, int xloc, int yloc, int xdim, int ydim) {
 	
-	/* to be implemented */
+    FEATURE *temp=head; // Get the pointer of the head of linked list
+    
+    while(temp!=NULL) // Loop through all the nodes
+    {
+        if (xloc > temp-> xloc && xloc < (temp->xloc + temp->xdim)){ // Check if feature comflicts in x axis
+            return temp; // Return the conflict feature pointer
+        }
+        else if (yloc > temp-> yloc && yloc < (temp->yloc + temp->ydim)){
+            return temp; // Return the conflict feature pointer
+        }
+        temp=temp->next;
+    }
 	return NULL;
-	
 }
 
 

@@ -100,31 +100,39 @@ void map_put_feature(FEATURE *feature) {
     FEATURE *ptr = feature;
     FEATURE *temp=head;
     FEATURE *prev=NULL;
-	
-    if(temp==NULL) { //Executes when linked list is empty
-        ptr->next=NULL; // Sets next to NULL. (First node)
-        head=ptr; // Set current head to ptr
-    }
-    else
-    {
-        while(temp!=NULL)
-        {
-            if(ptr->next == NULL) // Loop till the end of the the link
-            {
-                prev=temp; // set prev ptr as current position
-                temp=temp->next; // Advance to the next node.
-                continue;
-            }
-            else
-            {
-                //Insert the node
-                prev->next=ptr; // Set prev node next position to new old position
-                ptr->next=temp;
-            }
+    
+    FEATURE *conflictingPointer = features_validate_geometry(feature->id,feature->xloc,feature->yloc,feature->xdim,feature->ydim);
+    if (conflictingPointer == NULL){
+        if(temp==NULL) { //Executes when linked list is empty
+            ptr->next=NULL; // Sets next to NULL. (First node)
+            head=ptr; // Set current head to ptr
         }
-        //Insert node at last
-        prev->next=ptr;
+        else
+        {
+            while(temp!=NULL)
+            {
+                if(ptr->next == NULL) // Loop till the end of the the link
+                {
+                    prev=temp; // set prev ptr as current position
+                    temp=temp->next; // Advance to the next node.
+                    continue;
+                }
+                else
+                {
+                    //Insert the node
+                    prev->next=ptr; // Set prev node next position to new old position
+                    ptr->next=temp;
+                }
+            }
+            //Insert node at last
+            prev->next=ptr;
+        }
     }
+    else { // Conflicts with a pointer
+        printf("That location is already occupied by feature %s.",conflictingPointer->name);
+    }
+	
+    
 		
 }
 

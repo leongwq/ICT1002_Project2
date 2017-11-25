@@ -80,6 +80,7 @@ void features_print(FEATURE *feature);
 int features_read(FILE *f);
 FEATURE * features_validate_geometry(const char *id, int xloc, int yloc, int xdim, int ydim);
 int features_write(FILE *f);
+FEATURE *getFeaturePointerByID(const char *arg);
 
 /* functions defined in map.c */
 void map_close(void);

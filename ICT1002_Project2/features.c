@@ -112,7 +112,13 @@ void features_init() {
  */
 void features_list() {
 	
-	/* to be implemented */
+    FEATURE *temp=head; // Get the pointer of the head of linked list
+    
+    while(temp!=NULL) // Generated the map with the features
+    {
+        printf("%s\t\t%s",temp->id,temp->name);
+        temp=temp->next;
+    }
 	
 }
 

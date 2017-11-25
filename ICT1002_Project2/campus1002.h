@@ -51,7 +51,6 @@ void main_design(void);
 int compare_token(const char *token1, const char *token2);
 int lscanf(const char *format, ...);
 
-
 /* functions defined in commands.c */
 int do_file_command(const char *command, const char *arg);
 void do_file_help(const char *arg);
@@ -67,7 +66,6 @@ void do_design_move(const char *arg);
 void do_design_rename(const char *arg);
 void do_design_resize(const char *arg);
 void do_design_save(const char *arg);
- 
  
 /* functions defined in features.c */
 FEATURE * features_add(char type, const char *id, const char *name, int xloc, int yloc, int xdim, int ydim);

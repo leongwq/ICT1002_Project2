@@ -209,9 +209,7 @@ void do_design_add(const char *arg) {
 	printf("What type of feature?\n  # - building\n  . - green space\n  _ - road\n  * - walkway\n");
     featureType = getchar();
     getchar();
-
-    printf("Feature Type = %c\n", featureType);
-
+    
     printf("Enter a name for feature %s: ",arg);
     scanf(" %s", featureName);
     getchar();
@@ -232,9 +230,6 @@ void do_design_add(const char *arg) {
     FEATURE *ptr;
     ptr = features_add(featureType, featureID, featureName, xLoc, yLoc, xDim, yDim); // Get the ptr for feature
     map_put_feature(ptr); // Add the feature on the map
-    
-    printf("Name = %s\n", ptr->name);
-
 }
 
 

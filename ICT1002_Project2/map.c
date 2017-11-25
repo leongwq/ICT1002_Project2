@@ -129,7 +129,7 @@ void map_put_feature(FEATURE *feature) {
         }
     }
     else { // Conflicts with a pointer
-        printf("That location is already occupied by feature %s.",conflictingPointer->name);
+        printf("That location is already occupied by feature %s.\n",conflictingPointer->name);
     }
 	
     

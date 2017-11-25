@@ -84,8 +84,16 @@ void features_delete(FEATURE *feature) {
 
 FEATURE *features_get(const char *id) {
 	
-	/* to be implemented */
-	return NULL;
+    FEATURE *temp=head;
+    
+    while(temp!=NULL) {
+        if(strcmp(temp->id,id) == 0) { // Loop till the ID matches
+            return temp;
+        }
+        temp=temp->next; // Advance to the next node.
+    }
+    
+    return NULL; // ID not found
 }
 
 
@@ -202,19 +210,3 @@ int features_write(FILE *f) {
 	
 }
 
-FEATURE *getFeaturePointerByID(const char *arg) {
-    
-    FEATURE *temp=head;
-    char *id;
-    
-    while(temp!=NULL) {
-        id = temp->id; // Convert char to char* for comparision
-        if(strcmp(temp->id,arg) == 0) { // Loop till the ID matches
-            return temp;
-        }
-        temp=temp->next; // Advance to the next node.
-    }
-    
-    return NULL; // ID not found
-    
-}

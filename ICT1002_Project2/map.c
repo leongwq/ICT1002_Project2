@@ -205,15 +205,14 @@ void map_remove_feature(FEATURE *feature) {
  */
 int map_validate_geometry(int xloc, int yloc, int xdim, int ydim) {
 	
-	/* to be implemented */
-	// if(isdigit(xdim)){
-	// 	return;
-	// }
-	// else{
-		
-	// }
+    if ((xloc + xdim) > xDimension){
+        return 0;
+    }
+    else if ((yloc + ydim) > yDimension){
+        return 0;
+    }
     
-    return 0;
+    return 1;
 }
 
 /*

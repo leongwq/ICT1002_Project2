@@ -73,14 +73,13 @@ void do_design_save(const char *arg);
 FEATURE * features_add(char type, const char *id, const char *name, int xloc, int yloc, int xdim, int ydim);
 void features_close(void);
 void features_delete(FEATURE *feature);
-FEATURE * features_get();
+FEATURE *features_get(const char *id);
 void features_init(void);
 void features_list(void);
 void features_print(FEATURE *feature);
 int features_read(FILE *f);
 FEATURE * features_validate_geometry(const char *id, int xloc, int yloc, int xdim, int ydim);
 int features_write(FILE *f);
-FEATURE *getFeaturePointerByID(const char *arg);
 
 /* functions defined in map.c */
 void map_close(void);

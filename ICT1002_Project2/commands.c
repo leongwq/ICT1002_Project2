@@ -289,7 +289,7 @@ void do_design_move(const char *arg) {
 void do_design_rename(const char *arg) {
 	
     char newFeatureName[MAX_NAME];
-    FEATURE *ptr = getFeaturePointerByID(arg); // Get the pointer of the node to be renamed
+    FEATURE *ptr = features_get(arg); // Get the pointer of the node to be renamed
     printf("Enter a new name for the feature: ");
     scanf(" %s", newFeatureName);
     strcpy(ptr->name,newFeatureName); // Set the new name to feature

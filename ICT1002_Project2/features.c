@@ -13,7 +13,6 @@
 /* declare your internal variables here */
 FEATURE *head=NULL; // DO NOT EVER MODIFY IT
 
-
 /*
  * Add a new feature
  *
@@ -116,10 +115,9 @@ void features_list() {
     
     while(temp!=NULL) // Generated the map with the features
     {
-        printf("%s\t\t%s",temp->id,temp->name);
+        printf("%s\t\t%s\n",temp->id,temp->name);
         temp=temp->next;
     }
-	
 }
 
 
@@ -130,10 +128,11 @@ void features_list() {
  *   feature - a pointer to the feature to be printed
  */
 void features_print(FEATURE *feature) {
-	
-	/* to be implemented */
     
-	
+    printf("%s\n",feature->id);
+    printf("%s\n",feature->name);
+    printf("Location: (%d,%d)\n",feature->xloc,feature->yloc);
+    printf("Dimensions: %d x %d\n",feature->xdim,feature->ydim);
 }
 
 
@@ -190,7 +189,7 @@ FEATURE *features_validate_geometry(const char *id, int xloc, int yloc, int xdim
         if (xloc >= temp-> xloc && xloc <= (temp->xloc + temp->xdim)){ // Check if feature comflicts in x axis
             return temp; // Return the conflict feature pointer
         }
-        else if (yloc >= temp-> yloc && yloc <= (temp->yloc + temp->ydim)){
+        else if (yloc >= temp-> yloc && yloc <= (temp->yloc + temp->ydim)){ // Check if feature comflicts in y axis
             return temp; // Return the conflict feature pointer
         }
         temp=temp->next;

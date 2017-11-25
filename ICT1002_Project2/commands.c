@@ -258,8 +258,18 @@ void do_design_delete(const char *arg) {
  */
 void do_design_display(const char *arg) {
     
-	printf("Your map canvas:\n");
-	map_print();
+    if (arg == NULL){
+        printf("Your map canvas:\n");
+        map_print();
+    }
+    else {
+        if (features_get(arg) == NULL){
+            printf("Feature with ID: %s not found.\n",arg);
+        }
+        else {
+            features_print(features_get(arg));
+        }
+    }
 }
 
 
@@ -268,7 +278,7 @@ void do_design_display(const char *arg) {
  */
 void do_design_list(const char *arg) {
 	
-	/* to be implemented */
+    features_list();
 	
 }
 

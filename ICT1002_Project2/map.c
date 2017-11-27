@@ -21,7 +21,9 @@ int yDimension = 0;
  */
 void map_close() {
 	
-	/* to be implemented */
+    memset(fileName,0,strlen(fileName));
+    xDimension = 0;
+    yDimension= 0;
 	
 }
 
@@ -238,7 +240,16 @@ int map_validate_geometry(int xloc, int yloc, int xdim, int ydim) {
  */
 int map_write(FILE *f) {
 	
-	/* to be implemented */
-	return ERROR_NONE;
-	
+    FEATURERAW feature;
+    
+    if (f == NULL) {
+        printf("error writing file !\n");
+        return ERROR_FILE;
+    }
+    else {
+        fwrite (&feature, sizeof(FEATURERAW), 1, f);
+        printf("contents to file written successfully !\n");
+    }
+    fclose(f);
+    return ERROR_NONE;
 }

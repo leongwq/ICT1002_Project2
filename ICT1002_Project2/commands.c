@@ -374,6 +374,7 @@ void do_design_resize(const char *arg) {
  */
 void do_design_save(const char *arg) {
 	
-	/* to be implemented */
+    FILE *f = fopen(arg, "w");
+    map_write(f);
 	
 }

@@ -17,7 +17,8 @@
 #include <ctype.h>
 #include "campus1002.h"
 
-char currentFeatureName[MAX_NAME];
+
+char currentFeatureName[50];
 
 /*
  * Execute a command in file mode.
@@ -100,14 +101,14 @@ void do_file_new(const char *arg) {
 	
 }
 
+
 /*
  * File mode OPEN command.
  */
 void do_file_open(const char *arg) {
-	
-    FILE *f = fopen(arg, "rb");
+
+	FILE *f = fopen(arg, "rb");
     map_read(f);
-    
 }
 
 /*
@@ -155,6 +156,7 @@ int do_design_command(const char *command, const char *arg) {
 		printf("Unrecognised command: %s.\n", command);
 	
 	return done;
+	
 }
 
 
@@ -185,6 +187,7 @@ void do_design_help(const char *arg) {
 		printf("EXIT             Stop editing and return to file mode.\n");
 	
 }
+
 
 /*
  * Design mode ADD command.
@@ -227,6 +230,7 @@ void do_design_add(const char *arg) {
     map_put_feature(ptr); // Add the feature on the map
 }
 
+
 /*
  * Design mode delete command.
  */
@@ -245,6 +249,7 @@ void do_design_delete(const char *arg) {
     }
 	
 }
+
 
 /*
  * Design mode DISPLAY command.
@@ -265,52 +270,26 @@ void do_design_display(const char *arg) {
     }
 }
 
+
 /*
  * Design mode LIST command.
  */
 void do_design_list(const char *arg) {
 	
     features_list();
+	
 }
+
 
 /*
  * Design mode MOVE command.
  */
 void do_design_move(const char *arg) {
-    
-    int newxLoc;
-    int newyLoc;
 	
-	FEATURE *ptr = features_get(arg); // Get the pointer of the node to be moved
-    
-    if (ptr != NULL){
-        printf("Enter new x location: ");
-        scanf(" %d", &newxLoc);
-        printf("Enter new y location: ");
-        scanf(" %d", &newyLoc);
-        
-        FEATURE *conflictingPointer = features_validate_geometry(ptr->id,newxLoc,newyLoc,ptr->xdim,ptr->ydim); // Check if new location has any conflicts
-        int withinMap = map_validate_geometry(newxLoc,newyLoc,ptr->xdim,ptr->ydim); // Check if new location is within map
-        if (!withinMap){ // The feature is not within map
-            printf("That location is not within map.\n");
-            return;
-        }
-        
-        if (conflictingPointer == NULL){ // Check if it has any conflicting features
-            ptr->xloc = newxLoc;
-            ptr->yloc = newyLoc;
-            printf("Feature with ID: %s has been updated with new location.\n",arg);
-        }
-        else {
-            printf("That location is already occupied by feature %s.\n",conflictingPointer->name);
-        }
-    }
-    else {
-        printf("Feature with ID: %s not found.\n",arg);
-    }
-
+	/* to be implemented */
 	
 }
+
 
 /*
  * Design mode RENAME command.
@@ -319,15 +298,9 @@ void do_design_rename(const char *arg) {
 	
     char newFeatureName[MAX_NAME];
     FEATURE *ptr = features_get(arg); // Get the pointer of the node to be renamed
-    if (ptr != NULL){
-        printf("Enter a new name for the feature: ");
-        scanf(" %s", newFeatureName);
-        strcpy(ptr->name,newFeatureName); // Set the new name to feature
-    }
-    else {
-        printf("Feature with ID: %s not found.\n",arg);
-    }
-
+    printf("Enter a new name for the feature: ");
+    scanf(" %s", newFeatureName);
+    strcpy(ptr->name,newFeatureName); // Set the new name to feature
 }
 
 
@@ -336,44 +309,26 @@ void do_design_rename(const char *arg) {
  */
 void do_design_resize(const char *arg) {
 	
-    int newxDim;
-    int newyDim;
-    
-    FEATURE *ptr = features_get(arg); // Get the pointer of the node to be moved
-    
-    if (ptr != NULL){
-        printf("Enter new x dimension: ");
-        scanf(" %d", &newxDim);
-        printf("Enter new y dimension: ");
-        scanf(" %d", &newyDim);
-        
-        FEATURE *conflictingPointer = features_validate_geometry(ptr->id,ptr->xloc,ptr->yloc,newxDim,newyDim); // Check if new dimension has any conflicts
-        int withinMap = map_validate_geometry(ptr->xloc,ptr->yloc,newxDim,newyDim); // Check if new dimension is within map
-        if (!withinMap){ // The feature is not within map
-            printf("That dimension is not within map.\n");
-            return;
-        }
-        
-        if (conflictingPointer == NULL){ // Check if it has any conflicting features
-            ptr->xdim = newxDim;
-            ptr->ydim = newyDim;
-            printf("Feature with ID: %s has been updated with new dimension.\n",arg);
-        }
-        else {
-            printf("That location is already occupied by feature %s.\n",conflictingPointer->name);
-        }
-    }
-    else {
-        printf("Feature with ID: %s not found.\n",arg);
-    }
-	
+	int newWidth[200];
+	int newHeight[200];
+
+	FEATURE *ptr = features_get(arg);
+
+	printf("Enter a new width for the map: ");
+	scanf(" %d", newWidth);
+	printf("Enter a new height for the map: ");
+	scanf(" %d", newHeight);
+
+
 }
+
 
 /*
  * Design mode SAVE command.
  */
 void do_design_save(const char *arg) {
 	
-	/* to be implemented */
+	FILE *f = fopen(arg, "w");
+    map_write(f);
 	
 }

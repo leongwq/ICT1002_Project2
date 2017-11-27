@@ -107,14 +107,20 @@ void do_file_new(const char *arg) {
  */
 void do_file_open(const char *arg) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 	FILE *f = fopen(arg, "rb");
     map_read(f);
 =======
+=======
+>>>>>>> parent of 66eaaa0... Updated open map feature
 	
 	/* to be implemented */
     
 	
+<<<<<<< HEAD
+>>>>>>> parent of 66eaaa0... Updated open map feature
+=======
 >>>>>>> parent of 66eaaa0... Updated open map feature
 }
 

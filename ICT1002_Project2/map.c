@@ -149,6 +149,7 @@ void map_put_feature(FEATURE *feature) {
  */
 int map_read(FILE *f) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	
     FEATURERAW feature;
     
@@ -162,6 +163,10 @@ int map_read(FILE *f) {
             printf("%s\n",feature.name);
         }
     }
+=======
+	
+    
+>>>>>>> parent of 66eaaa0... Updated open map feature
 =======
 	
     

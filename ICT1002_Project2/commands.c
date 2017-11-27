@@ -106,10 +106,18 @@ void do_file_new(const char *arg) {
  * File mode OPEN command.
  */
 void do_file_open(const char *arg) {
+<<<<<<< HEAD
 
 	FILE *f = fopen(arg, "rb");
     map_read(f);
+=======
+	
+	/* to be implemented */
+    
+	
+>>>>>>> parent of 66eaaa0... Updated open map feature
 }
+
 
 /*
  * Execute a command in design mode.

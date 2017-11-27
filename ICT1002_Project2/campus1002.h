@@ -44,17 +44,6 @@ typedef struct feature_struct {
     struct      feature_struct *next;
 } FEATURE;
 
-/* a structure for representing features */
-typedef struct feature_struct_raw {
-    char        type;            /* feature type */
-    char        id[MAX_ID];      /* unique identifier */
-    char        name[MAX_NAME];  /* name */
-    int32_t     xloc;            /* x location */
-    int32_t     yloc;            /* y location */
-    int32_t     xdim;            /* x dimension */
-    int32_t     ydim;            /* y dimension */
-} FEATURERAW;
-
 extern FEATURE *head;
 
 /* functions defined in main.c */

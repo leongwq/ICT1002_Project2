@@ -50,8 +50,8 @@ int map_init(const char *name, int xdim, int ydim) {
  */
 void map_print() {
     
-    char map[head->xdim][head->ydim]; // Generate 2D array for map
-    memset( map, 0, sizeof(map));
+    char map[head->ydim][head->xdim]; // Generate 2D array for map
+    memset( map, ' ', sizeof(map));
     
     FEATURE *temp=head->next; // Get the pointer of the head of linked list
     
@@ -59,20 +59,17 @@ void map_print() {
     {
         for (int xdim = 0; xdim < temp->xdim; xdim++){
             map[temp->yloc][temp->xloc + xdim] = temp->type;
-            printf("X axis: Appeding to map[%d][%d]\n",temp->yloc,temp->xloc+xdim);
-        }
-        for (int ydim = 0; ydim < temp->ydim; ydim++){
-            map[temp->yloc + ydim][temp->xloc] = temp->type;
-            printf("Y axis: Appeding to map[%d][%d]\n",temp->yloc + ydim,temp->xloc);
-
+            for (int ydim = 0; ydim < temp->ydim; ydim++){
+                map[temp->yloc + ydim][temp->xloc + xdim] = temp->type;
+            }
         }
         temp=temp->next;
     }
     
     for (int i = 0; i < head->ydim; i++) { // Print out the map
         for (int j = 0; j < head->xdim; j++) {
-            //printf("%c ", map[i][j]);
-            printf("map[%d][%d](%c)",i,j,map[i][j]);
+            printf("%c ", map[i][j]);
+            //printf("map[%d][%d](%c)",i,j,map[i][j]);
         }
         printf("\n");
     }
@@ -171,7 +168,6 @@ int map_read(FILE *f) {
             FEATURE *ptr;
             ptr = features_add(feature.type, feature.id, feature.name, feature.xloc, feature.yloc, feature.xdim, feature.ydim); // Get the ptr for feature
             map_put_feature(ptr); // Add the feature on the map
-            printf("%s xLoc: %d yLoc: %d xDim: %d yDim: %d Feature Type: %c\n",feature.name,feature.xloc,feature.yloc,feature.xdim,feature.ydim,feature.type);
         }
     }
 	return 0;
@@ -227,11 +223,9 @@ void map_remove_feature(FEATURE *feature) {
 int map_validate_geometry(int xloc, int yloc, int xdim, int ydim) {
 	
     if ((xloc + xdim) > head->xdim){
-        printf("X Geometry fail - %d Compared to %d\n",xloc+xdim,head->xdim);
         return 0;
     }
     else if ((yloc + ydim) > head->ydim){
-        printf("Y Geometry fail - %d Compared to %d\n",yloc+ydim,head->ydim);
         return 0;
     }
     

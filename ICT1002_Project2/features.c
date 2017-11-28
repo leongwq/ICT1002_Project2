@@ -193,23 +193,14 @@ int features_read(FILE *f) {
 FEATURE *features_validate_geometry(const char *id, int xloc, int yloc, int xdim, int ydim) {
     FEATURE *temp=head->next; // Get the pointer of the second node. First node is map data
     
-//    char map[head->ydim][head->xdim]; // Generate 2D array for map
-//    memset( map, 0, sizeof(map));
-//    
-//    while(temp!=NULL)
-//    {
-//        for (int xdim = 0; xdim<head->xdim; xdim++){
-//            if (map[temp->yloc][temp->xloc + xdim]!= 0){
-//                return temp;
-//            }
-//        }
-//        for (int ydim = 0; ydim<head->ydim; ydim++){
-//            if (map[temp->yloc + ydim][temp->xloc]!=0){
-//                return temp;
-//            }
-//        }
-//        temp=temp->next;
-//    }
+    while(temp!=NULL)
+    {
+        if((xloc + xdim) >= temp->xloc && xloc <= (temp->xloc + temp->xdim) && (yloc + ydim) >= temp->yloc && yloc <= (temp->yloc + temp->ydim)){
+            return temp;
+        }
+
+        temp=temp->next;
+    }
     
     return NULL;
 }

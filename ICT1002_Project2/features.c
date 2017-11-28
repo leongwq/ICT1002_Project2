@@ -191,19 +191,27 @@ int features_read(FILE *f) {
  *   a pointer to one of the features occupying this space, otherwise
  */
 FEATURE *features_validate_geometry(const char *id, int xloc, int yloc, int xdim, int ydim) {
-    FEATURE *temp=head; // Get the pointer of the head of linked list
+    FEATURE *temp=head->next; // Get the pointer of the second node. First node is map data
     
-    while(temp!=NULL) // Loop through all the nodes
-    {
-        if (xloc >= temp-> xloc && xloc <= (temp->xloc + temp->xdim)){ // Check if feature comflicts in x axis
-            return temp; // Return the conflict feature pointer
-        }
-        else if (yloc >= temp-> yloc && yloc <= (temp->yloc + temp->ydim)){ // Check if feature comflicts in y axis
-            return temp; // Return the conflict feature pointer
-        }
-        temp=temp->next;
-    }
-	return NULL;
+//    char map[head->ydim][head->xdim]; // Generate 2D array for map
+//    memset( map, 0, sizeof(map));
+//    
+//    while(temp!=NULL)
+//    {
+//        for (int xdim = 0; xdim<head->xdim; xdim++){
+//            if (map[temp->yloc][temp->xloc + xdim]!= 0){
+//                return temp;
+//            }
+//        }
+//        for (int ydim = 0; ydim<head->ydim; ydim++){
+//            if (map[temp->yloc + ydim][temp->xloc]!=0){
+//                return temp;
+//            }
+//        }
+//        temp=temp->next;
+//    }
+    
+    return NULL;
 }
 
 /*

@@ -12,9 +12,6 @@
 
 /* declare your internal variables here */
 char fileName[20];
-int xDimension = 0;
-int yDimension = 0;
-
 
 /*
  * Deallocate the current map.
@@ -22,8 +19,6 @@ int yDimension = 0;
 void map_close() {
 	
     memset(fileName,0,strlen(fileName));
-    xDimension = 0;
-    yDimension= 0;
 	
 }
 
@@ -41,14 +36,10 @@ void map_close() {
  */
 int map_init(const char *name, int xdim, int ydim) {
 	
-	//User input is now stored as internal variable
-	strcpy(fileName, name);	
-	xDimension = xdim;
-	yDimension = ydim;
-
-	// return *fileName;
-	// return xDimension;
-	// return yDimension;
+    // Initialize first feature as map
+    FEATURE *ptr;
+    ptr = features_add(FEATURE_NONE, "MAP", name, 0, 0, xdim, ydim); // Get the ptr for feature
+    map_put_feature(ptr);
     
     return 0;
 
@@ -59,25 +50,29 @@ int map_init(const char *name, int xdim, int ydim) {
  */
 void map_print() {
     
-    char map[yDimension][xDimension]; // Generate 2D array for map
+    char map[head->xdim][head->ydim]; // Generate 2D array for map
     memset( map, 0, sizeof(map));
     
-    FEATURE *temp=head; // Get the pointer of the head of linked list
-
+    FEATURE *temp=head->next; // Get the pointer of the head of linked list
+    
     while(temp!=NULL) // Generated the map with the features
     {
-        for (int xdim = 0; xdim<temp->xdim; xdim++){
+        for (int xdim = 0; xdim < temp->xdim; xdim++){
             map[temp->yloc][temp->xloc + xdim] = temp->type;
+            printf("X axis: Appeding to map[%d][%d]\n",temp->yloc,temp->xloc+xdim);
         }
-        for (int ydim = 0; ydim<temp->ydim; ydim++){
+        for (int ydim = 0; ydim < temp->ydim; ydim++){
             map[temp->yloc + ydim][temp->xloc] = temp->type;
+            printf("Y axis: Appeding to map[%d][%d]\n",temp->yloc + ydim,temp->xloc);
+
         }
         temp=temp->next;
     }
     
-    for (int i = 0; i < xDimension; i++) { // Print out the map
-        for (int j = 0; j < yDimension; j++) {
-            printf("%c ", map[i][j]);
+    for (int i = 0; i < head->ydim; i++) { // Print out the map
+        for (int j = 0; j < head->xdim; j++) {
+            //printf("%c ", map[i][j]);
+            printf("map[%d][%d](%c)",i,j,map[i][j]);
         }
         printf("\n");
     }
@@ -100,14 +95,24 @@ void map_put_feature(FEATURE *feature) {
     FEATURE *ptr = feature;
     FEATURE *temp=head;
     FEATURE *prev=NULL;
+    FEATURE *conflictingPointer;
+    int withinMap;
     
-    FEATURE *conflictingPointer = features_validate_geometry(feature->id,feature->xloc,feature->yloc,feature->xdim,feature->ydim);
-    int withinMap = map_validate_geometry(feature->xloc,feature->yloc,feature->xdim,feature->ydim);
+    if (head != NULL){ // If map already initialized
+        conflictingPointer = features_validate_geometry(feature->id,feature->xloc,feature->yloc,feature->xdim,feature->ydim);
+        withinMap = map_validate_geometry(feature->xloc,feature->yloc,feature->xdim,feature->ydim);
+    }
+    else { // Ignore checks for first node as it is map data
+        conflictingPointer = NULL;
+        withinMap = 1;
+    }
+
     
     if (!withinMap){ // The feature is not within map
-        printf("That location is not within map.\n");
+        printf("%s is not within map.\n",feature->name);
         return;
     }
+    
     
     if (conflictingPointer == NULL){ // Check if it has any conflicting features
         if(temp==NULL) { //Executes when linked list is empty
@@ -136,7 +141,7 @@ void map_put_feature(FEATURE *feature) {
         }
     }
     else { // Conflicts with a pointer
-        printf("That location is already occupied by feature %s.\n",conflictingPointer->name);
+        printf("That location (%s) is already occupied by feature %s.\n",feature->name,conflictingPointer->name);
     }
 }
 
@@ -163,7 +168,10 @@ int map_read(FILE *f) {
     else {
         while (!feof(f)){
             fread(&feature,sizeof(feature),1,f);
-            printf("%s\n",feature.name);
+            FEATURE *ptr;
+            ptr = features_add(feature.type, feature.id, feature.name, feature.xloc, feature.yloc, feature.xdim, feature.ydim); // Get the ptr for feature
+            map_put_feature(ptr); // Add the feature on the map
+            printf("%s xLoc: %d yLoc: %d xDim: %d yDim: %d Feature Type: %c\n",feature.name,feature.xloc,feature.yloc,feature.xdim,feature.ydim,feature.type);
         }
     }
 	return 0;
@@ -218,10 +226,12 @@ void map_remove_feature(FEATURE *feature) {
  */
 int map_validate_geometry(int xloc, int yloc, int xdim, int ydim) {
 	
-    if ((xloc + xdim) > xDimension){
+    if ((xloc + xdim) > head->xdim){
+        printf("X Geometry fail - %d Compared to %d\n",xloc+xdim,head->xdim);
         return 0;
     }
-    else if ((yloc + ydim) > yDimension){
+    else if ((yloc + ydim) > head->ydim){
+        printf("Y Geometry fail - %d Compared to %d\n",yloc+ydim,head->ydim);
         return 0;
     }
     

@@ -107,6 +107,7 @@ void do_file_open(const char *arg) {
 	
     FILE *f = fopen(arg, "rb");
     map_read(f);
+    main_design(); // Enter design mode
     
 }
 
@@ -204,6 +205,21 @@ void do_design_add(const char *arg) {
 	printf("What type of feature?\n  # - building\n  . - green space\n  _ - road\n  * - walkway\n");
     featureType = getchar();
     getchar();
+    
+    switch(featureType) {
+        case '#':
+            featureType = FEATURE_BUILDING;
+            break;
+        case '.':
+            featureType = FEATURE_GREENSPACE;
+            break;
+        case '_':
+            featureType = FEATURE_ROAD;
+            break;
+        case '*':
+            featureType = FEATURE_WALKWAY;
+            break;
+    }
     
     printf("Enter a name for feature %s: ",arg);
     scanf(" %s", featureName);

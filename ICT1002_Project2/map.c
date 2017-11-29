@@ -42,7 +42,6 @@ int map_init(const char *name, int xdim, int ydim) {
     map_put_feature(ptr);
     
     return 0;
-
 }
 
 /*
@@ -65,7 +64,6 @@ void map_print() {
         }
         temp=temp->next;
     }
-    
     for (int i = 0; i < head->ydim; i++) { // Print out the map
         for (int j = 0; j < head->xdim; j++) {
             printf("%c ", map[i][j]);
@@ -142,7 +140,6 @@ void map_put_feature(FEATURE *feature) {
     }
 }
 
-
 /*
  * Create a map from a map record in a file.
  *
@@ -159,7 +156,6 @@ int map_read(FILE *f) {
     FEATURERAW feature;
     
     if (f == NULL) {
-        printf("Could not open map.\n");
         return ERROR_FILE;
     }
     else {
@@ -170,9 +166,8 @@ int map_read(FILE *f) {
             map_put_feature(ptr); // Add the feature on the map
         }
     }
-	return 0;
+	return ERROR_NONE;
 }
-
 
 /*
  * Remove a feature from the map.
@@ -201,9 +196,7 @@ void map_remove_feature(FEATURE *feature) {
             }
             temp=temp->next; // Advance to the next node.
         }
-
     }
-    
 }
 
 
@@ -245,15 +238,27 @@ int map_validate_geometry(int xloc, int yloc, int xdim, int ydim) {
 int map_write(FILE *f) {
 	
     FEATURERAW feature;
-    
+    FEATURE *temp=head; // Get the pointer of the head of linked list
     if (f == NULL) {
         printf("error writing file !\n");
         return ERROR_FILE;
     }
     else {
-        fwrite (&feature, sizeof(FEATURERAW), 1, f);
-        printf("contents to file written successfully !\n");
+        while(temp!=NULL) { // Loop the entire linked list
+            feature.type = temp->type;
+            strcpy(feature.id, temp->id);
+            strcpy(feature.name, temp->name);
+            feature.xloc = temp->xloc;
+            feature.yloc = temp->yloc;
+            feature.xdim = temp->xdim;
+            feature.ydim = temp->ydim;
+            
+            fwrite(&feature, sizeof(FEATURERAW), 1, f);
+            
+            temp = temp->next; // Advance to next node
+        }
+        printf("Map file created !\n");
+        fclose(f);
+        return ERROR_NONE;
     }
-    fclose(f);
-    return ERROR_NONE;
 }

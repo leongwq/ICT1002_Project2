@@ -106,8 +106,12 @@ void do_file_new(const char *arg) {
 void do_file_open(const char *arg) {
 	
     FILE *f = fopen(arg, "rb");
-    map_read(f);
-    main_design(); // Enter design mode
+    if (map_read(f) == ERROR_NONE){
+        main_design(); // Enter design mode
+    }
+    else {
+        printf("Could not open map.\n");
+    }
     
 }
 

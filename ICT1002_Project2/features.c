@@ -47,7 +47,6 @@ FEATURE *features_add(char type, const char *id, const char *name, int xloc, int
     return ptr;
 }
 
-
 /*
  * Deallocate memory used by the current collection of features.
  */
@@ -195,10 +194,9 @@ FEATURE *features_validate_geometry(const char *id, int xloc, int yloc, int xdim
     
     while(temp!=NULL)
     {
-        if((xloc + xdim) >= temp->xloc && xloc <= (temp->xloc + temp->xdim) && (yloc + ydim) >= temp->yloc && yloc <= (temp->yloc + temp->ydim)){
+        if((xloc + xdim - 1) >= temp->xloc && xloc <= (temp->xloc + temp->xdim - 1) && (yloc + ydim - 1) >= temp->yloc && yloc <= (temp->yloc + temp->ydim - 1)){
             return temp;
         }
-
         temp=temp->next;
     }
     

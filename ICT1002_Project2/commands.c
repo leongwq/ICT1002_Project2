@@ -76,27 +76,68 @@ void do_file_help(const char *arg) {
  */
 void do_file_new(const char *arg) {
 
-	char userName[20];
-	int userXdim = 0;
-	int userYdim = 0;
-
-	// Check for user input
-	printf("Enter a name for the new design: ");
-	scanf(" %s", userName);
+    char userName[20];
+    char userXdim1[MAX_INPUT];
+    char userYdim1[MAX_INPUT];
+    
+    // Check for user input
+    printf("Enter a name for the new design: ");
+    scanf(" %s", userName);
     getchar();
-	printf("Enter the x dimension: ");
-	scanf(" %d",&userXdim);
-    getchar();
-	printf("Enter the y dimension: ");
-	scanf(" %d",&userYdim);
-    getchar();
-
-
-	// Store user input into variables in map.c for usage
-	map_init(userName, userXdim, userYdim);
-
-	//Once done, enter design mode
-	main_design();
+    while (1) {
+        printf("Enter the x dimension: ");
+        if (fgets(userXdim1, sizeof(userXdim1), stdin)) {
+            char *p;
+            if (p == strchr(userXdim1, '\n')) {//check exist newline
+                *p = 0;
+            } else {
+                scanf("%*[^\n]");
+                scanf("%*c");//clear upto newline
+            }
+        }
+        int flag = 0;
+        /* This code portion checks if the input characters are digits.*/
+        for (int i = 0; userXdim1[i] != '\0'; i++) {
+            if (!(isdigit(userXdim1[i]))) {
+                flag += 1;
+            }
+        }
+        if (flag == 0) {
+            break;
+        }
+    }
+    int userXdim = strtol(userXdim1, NULL, 10);
+    
+    while (1) {
+        printf("Enter the y dimension: ");
+        if (fgets(userYdim1, sizeof(userYdim1), stdin)) {
+            char *p = NULL;
+            if (p == strchr(userYdim1, '\n')) {//check exist newline
+                *p = 0;
+            } else {
+                scanf("%*[^\n]");
+                scanf("%*c");//clear upto newline
+            }
+        }
+        int flag = 0;
+        /* This code portion checks if the input characters are digits.*/
+        for (int i = 0; userYdim1[i] != '\0'; i++) {
+            if (!(isdigit(userYdim1[i]))) {
+                flag += 1;
+            }
+        }
+        if (flag == 0) {
+            break;
+        }
+    }
+    int userYdim = strtol(userYdim1, NULL, 10);
+    
+    
+    // Store user input into variables in map.c for usage
+    map_init(userName, userXdim, userYdim);
+    
+    //Once done, enter design mode
+    main_design();
 	
 }
 
@@ -112,7 +153,6 @@ void do_file_open(const char *arg) {
     else {
         printf("Could not open map.\n");
     }
-    
 }
 
 /*
@@ -198,7 +238,7 @@ void do_design_add(const char *arg) {
 	
     char featureID[MAX_ID];
     char featureName[MAX_NAME];
-    char featureType;
+    char featureType = '\0';
     int xLoc = 0;
     int yLoc = 0;
     int xDim = 0;
@@ -206,9 +246,12 @@ void do_design_add(const char *arg) {
     
     strcpy(featureID, arg); // Set featureID
     
-	printf("What type of feature?\n  # - building\n  . - green space\n  _ - road\n  * - walkway\n");
-    featureType = getchar();
-    getchar();
+    while ((featureType != '#') && (featureType != '.') && (featureType != '_') && (featureType != '*')) {
+        printf("Please enter a valid feature type.\n");
+        printf("What type of feature?\n  # - building\n  . - green space\n  _ - road\n  * - walkway\n");
+        featureType = getchar();
+        getchar();
+    }
     
     switch(featureType) {
         case '#':
@@ -226,8 +269,7 @@ void do_design_add(const char *arg) {
     }
     
     printf("Enter a name for feature %s: ",arg);
-    scanf(" %s", featureName);
-    getchar();
+    lscanf(" %s", featureName);
     printf("Enter the x location: ");
 	scanf(" %d", &xLoc);
     getchar();
@@ -316,7 +358,7 @@ void do_design_move(const char *arg) {
             return;
         }
         
-        if (conflictingPointer == NULL){ // Check if it has any conflicting features
+        if (conflictingPointer == NULL || conflictingPointer == ptr){ // Check if it has any conflicting features
             ptr->xloc = newxLoc;
             ptr->yloc = newyLoc;
             printf("Feature with ID: %s has been updated with new location.\n",arg);
@@ -374,7 +416,7 @@ void do_design_resize(const char *arg) {
             return;
         }
         
-        if (conflictingPointer == NULL){ // Check if it has any conflicting features
+        if (conflictingPointer == NULL || conflictingPointer == ptr){ // Check if it has any conflicting features
             ptr->xdim = newxDim;
             ptr->ydim = newyDim;
             printf("Feature with ID: %s has been updated with new dimension.\n",arg);
@@ -385,8 +427,7 @@ void do_design_resize(const char *arg) {
     }
     else {
         printf("Feature with ID: %s not found.\n",arg);
-    }
-	
+    }	
 }
 
 /*

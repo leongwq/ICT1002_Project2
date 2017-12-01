@@ -71,6 +71,7 @@ int do_design_command(const char *command, const char *arg);
 void do_design_help(const char *arg);
 void do_design_add(const char *arg);
 void do_design_delete(const char *arg);
+void do_design_deletefeatures(const char *arg);
 void do_design_display(const char *arg);
 void do_design_list(const char *arg);
 void do_design_move(const char *arg);

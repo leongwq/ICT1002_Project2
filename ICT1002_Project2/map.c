@@ -18,8 +18,14 @@ char fileName[20];
  */
 void map_close() {
 	
-    memset(fileName,0,strlen(fileName));
-	
+    FEATURE *temp=NULL;
+    FEATURE *headPtr=head;
+    
+    while(headPtr!=NULL) {
+        temp = head; // Set the temp to the current head
+        headPtr = headPtr->next; // Set headPtr to the next available head
+        free(temp); // Free previous head
+    }
 }
 
 /*

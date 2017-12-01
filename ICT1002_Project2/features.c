@@ -53,13 +53,15 @@ FEATURE *features_add(char type, const char *id, const char *name, int xloc, int
 void features_close() {
     
     FEATURE *temp=NULL;
-    FEATURE *headPtr=head;
+    FEATURE *featurePtr=head->next;
 
-    while(headPtr!=NULL) {
-        temp = head; // Set the temp to the current head
-        headPtr = headPtr->next; // Set headPtr to the next available head
-        free(temp); // Free previous head
+    while(featurePtr!=NULL) {
+        temp = featurePtr; // Set the temp to the current node
+        featurePtr = featurePtr->next; // Set featurePtr to the next available node
+        free(temp); // Free previous node
     }
+    
+    head->next = NULL;
 }
 
 /*

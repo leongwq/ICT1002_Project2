@@ -70,74 +70,32 @@ void do_file_help(const char *arg) {
 	
 }
 
-
 /*
  * File mode NEW command.
  */
 void do_file_new(const char *arg) {
 
-    char userName[20];
-    char userXdim1[MAX_INPUT];
-    char userYdim1[MAX_INPUT];
-    
-    // Check for user input
-    printf("Enter a name for the new design: ");
-    scanf(" %s", userName);
+	char userName[20];
+	int userXdim = 0;
+	int userYdim = 0;
+
+	// Check for user input
+	printf("Enter a name for the new design: ");
+	scanf(" %s", userName);
     getchar();
-    while (1) {
-        printf("Enter the x dimension: ");
-        if (fgets(userXdim1, sizeof(userXdim1), stdin)) {
-            char *p;
-            if (p == strchr(userXdim1, '\n')) {//check exist newline
-                *p = 0;
-            } else {
-                scanf("%*[^\n]");
-                scanf("%*c");//clear upto newline
-            }
-        }
-        int flag = 0;
-        /* This code portion checks if the input characters are digits.*/
-        for (int i = 0; userXdim1[i] != '\0'; i++) {
-            if (!(isdigit(userXdim1[i]))) {
-                flag += 1;
-            }
-        }
-        if (flag == 0) {
-            break;
-        }
-    }
-    int userXdim = strtol(userXdim1, NULL, 10);
-    
-    while (1) {
-        printf("Enter the y dimension: ");
-        if (fgets(userYdim1, sizeof(userYdim1), stdin)) {
-            char *p = NULL;
-            if (p == strchr(userYdim1, '\n')) {//check exist newline
-                *p = 0;
-            } else {
-                scanf("%*[^\n]");
-                scanf("%*c");//clear upto newline
-            }
-        }
-        int flag = 0;
-        /* This code portion checks if the input characters are digits.*/
-        for (int i = 0; userYdim1[i] != '\0'; i++) {
-            if (!(isdigit(userYdim1[i]))) {
-                flag += 1;
-            }
-        }
-        if (flag == 0) {
-            break;
-        }
-    }
-    int userYdim = strtol(userYdim1, NULL, 10);
-    
-    
-    // Store user input into variables in map.c for usage
-    map_init(userName, userXdim, userYdim);
-    
-    //Once done, enter design mode
-    main_design();
+	printf("Enter the x dimension: ");
+	scanf(" %d",&userXdim);
+    getchar();
+	printf("Enter the y dimension: ");
+	scanf(" %d",&userYdim);
+    getchar();
+
+
+	// Store user input into variables in map.c for usage
+	map_init(userName, userXdim, userYdim);
+
+	//Once done, enter design mode
+	main_design();
 	
 }
 
@@ -182,6 +140,8 @@ int do_design_command(const char *command, const char *arg) {
 		do_design_add(arg);
 	else if (compare_token(command, "delete") == 0)
 		do_design_delete(arg);
+    else if (compare_token(command, "deletefeatures") == 0)
+        do_design_deletefeatures(arg);
 	else if (compare_token(command, "display") == 0)
 		do_design_display(arg);
 	else if (compare_token(command, "list") == 0)
@@ -216,6 +176,8 @@ void do_design_help(const char *arg) {
 		printf("ADD <id>         Create a new feature with identifer <id>\n");
 	if (arg == NULL || arg[0] == '\0' || compare_token(arg, "delete") == 0)
 		printf("DELETE <id>      Delete the feature with identifier <id>.\n");
+    if (arg == NULL || arg[0] == '\0' || compare_token(arg, "delete") == 0)
+        printf("DELETEFEATURES   Delete all features in the map.\n");
 	if (arg == NULL || arg[0] == '\0' || compare_token(arg, "list") == 0)
 		printf("LIST             List all of the features on the map.\n");
 	if (arg == NULL || arg[0] == '\0' || compare_token(arg, "move") == 0)
@@ -305,7 +267,14 @@ void do_design_delete(const char *arg) {
         }
         temp=temp->next; // Advance to the next node.
     }
-	
+}
+
+/*
+ * Design mode deletefeatures command.
+ */
+void do_design_deletefeatures(const char *arg) {
+    
+    features_close();
 }
 
 /*
@@ -427,7 +396,7 @@ void do_design_resize(const char *arg) {
     }
     else {
         printf("Feature with ID: %s not found.\n",arg);
-    }	
+    }
 }
 
 /*
